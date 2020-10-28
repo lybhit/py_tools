@@ -2,7 +2,7 @@ import cv2
 import numpy
 import matplotlib.pyplot as plt
 
-img = cv2.imread("../data/map.pgm" ,  cv2.IMREAD_GRAYSCALE)
+img = cv2.imread("../data/map_rtk_5.pgm" ,  cv2.IMREAD_GRAYSCALE)
 print("pic shape, return (row number, col number, chanel number):", img.shape)
 print("pixel number:", img.size)
 print("pic type:", img.dtype)

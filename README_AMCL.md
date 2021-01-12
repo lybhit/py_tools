@@ -83,79 +83,55 @@ mode: raw
 ```
 如果use_raw_map为false,map对应的.yaml文件中地图模式(mode)行注释掉即可。
 
-5.2 **odom更新粒子位姿模块重要参数说明**
-  该模块的参数主要用于在滤波算法中对粒子的位姿进行更新。
-**odom_model_type**
-  E100系列机器人需要设置参数为：E-Series.
-**publish_odom_tf**
-  是否发布odom和map的tf变换的开关量。当前版本需要设置为：true.
-**depend_odom**
-  是否进入odom定位模式的开关量。
-**good_observe_coefficient**
-  根据激光和地图匹配的置信度判断给定机器人初粒子是否满足收敛条件。匹配置信度高于该阈值时，收敛；反之，没有收敛。
-**medium_observe_coefficient**
-  从odom定位模式恢复到AMCL定位模式的判断条件。当匹配置信度高于该阈值时，从odom定位切换到AMCL定位；反之，不切换到AMCL定位。
-**bad_observe_coefficient**
-  从AMCL定位切换到odom定位的判断条件。当匹配置信度低于该阈值时，从AMCL定位切换到odom定位。
+5.2 **odom更新粒子位姿模块重要参数说明**  
+  该模块的参数主要用于在滤波算法中对粒子的位姿进行更新。  
+  **odom_model_type**: E100系列机器人需要设置参数为：E-Series.  
+  **publish_odom_tf**: 是否发布odom和map的tf变换的开关量。当前版本需要设置为：true.  
+  **depend_odom**: 是否进入odom定位模式的开关量。  
+  **good_observe_coefficient**: 根据激光和地图匹配的置信度判断给定机器人初粒子是否满足收敛条件。匹配置信度高于该阈值时，收敛；反之，没有收敛。  
+  **medium_observe_coefficient**: 从odom定位模式恢复到AMCL定位模式的判断条件。当匹配置信度高于该阈值时，从odom定位切换到AMCL定位；反之，不切换到AMCL定位。  
+  **bad_observe_coefficient**: 从AMCL定位切换到odom定位的判断条件。当匹配置信度低于该阈值时，从AMCL定位切换到odom定位。  
 
-**odom_alpha1**  
-  更新粒子位姿时，由于旋转在旋转方向引入噪声的系数。
-**odom_alpha2**  
-  更新粒子位姿时，由于旋转在直行方向引入噪声的系数。
-**odom_alpha3**  
-  更新粒子位姿时，由于直行在直行方向引入噪声的系数。
-**odom_alpha4**  
-  更新粒子位姿时，由于直行在旋转方向引入噪声的系数。
+  **odom_alpha1**: 更新粒子位姿时，由于旋转在旋转方向引入噪声的系数。  
+  **odom_alpha2**: 更新粒子位姿时，由于旋转在直行方向引入噪声的系数。  
+  **odom_alpha3**: 更新粒子位姿时，由于直行在直行方向引入噪声的系数。  
+  **odom_alpha4**: 更新粒子位姿时，由于直行在旋转方向引入噪声的系数。  
 
 5.3 **voxel_filter**  
-  voxel_filter对激光数据进行过滤，降采样。得到空间分布相对均匀的激光数据，可适当的降低算力消耗。
-  **voxel_max_length**  
-    栅格大小。
-  **voxel_max_range**  
-    过滤激光数据，超出阈值的数据不进行处理。
-  **voxel_min_num_points**  
-    过滤后输出激光线束的最小值。
+  对激光数据进行过滤，降采样。得到空间分布相对均匀的激光数据，可适当的降低算力消耗。
+  **voxel_max_length**: 栅格大小。
+  **voxel_max_range**: 过滤激光数据，超出阈值的数据不进行处理。
+  **voxel_min_num_points**: 过滤后输出激光线束的最小值。
 
 5.4 **粒子滤波器重要参数**
   粒子滤波的核心处理模块，包含粒子聚类和重采样计算。  
-  **min_particles**  
-    滤波器中使用的最少粒子个数。  
-  **max_particles**  
-    滤波器中使用的最多粒子个数。  
-  **update_min_d**  
-    odom更新粒子位姿直行距离触发阈值。  
-  **update_min_a**  
-    odom更新粒子位姿旋转角度触发阈值。  
-  **resample_interval**  
-    重采样更新间隔。
+  **min_particles**: 滤波器中使用的最少粒子个数。  
+  **max_particles**: 滤波器中使用的最多粒子个数。  
+  **update_min_d**: odom更新粒子位姿直行距离触发阈值。  
+  **update_min**: odom更新粒子位姿旋转角度触发阈值。  
+  **resample_interval**: 重采样更新间隔。
 
 5.5 **初始位姿加载**
   该模块可以加载滤波器的粒子的初始位姿。  
-  **initial_pose_x**  
-    初始位姿x坐标。  
-  **initial_pose_y**  
-    初始位姿y坐标。  
-  **initial_pose_z**  
-    初始位姿yaw角坐标。  
-  **initial_cov_xx**  
-    初始位姿x方向的协方差。  
-  **initial_cov_yy**  
-    初始位姿y方向的协方差。  
-  **initial_cov_aa**  
-    初始位姿yaw角方向的协方差。  
+  **initial_pose_x**: 初始位姿x坐标。  
+  **initial_pose_y**: 初始位姿y坐标。  
+  **initial_pose_a**: 初始位姿yaw角坐标。  
+  **initial_cov_xx**: 初始位姿x方向的协方差。  
+  **initial_cov_yy**: 初始位姿y方向的协方差。  
+  **initial_cov_aa**: 初始位姿yaw角方向的协方差。  
 
 其他参数可以通过[ros wiki](http://wiki.ros.org/amcl)网页进行查询。
 
 5.6 **实际应用场景参数调节**
-如果硬件的算力允许的话，为了达到更好的定位精度。可以按照如下方法进行调参。
-增大： min_particles 
-增大： max_particles
-减小： update_min_d
-减小： update_min_a
-减小： resample_interval
+  如果硬件的算力允许的话，为了达到更好的定位精度。可以按照如下方法进行调参。
+  增大： min_particles 
+  增大： max_particles
+  减小： update_min_d
+  减小： update_min_a
+  减小： resample_interval
 
-如果里程计数据很精确的情况下。可以适当调整以下参数。
-减小：odom_alpha1, odom_alpha2, odom_alpha3, odom_alpha4
+  如果里程计数据很精确的情况下。可以适当调整以下参数。
+  减小：odom_alpha1, odom_alpha2, odom_alpha3, odom_alpha4
 
-如果里程计数据不太精确的情况下。可以适当调整以下参数。
-增大：odom_alpha1, odom_alpha2, odom_alpha3, odom_alpha4
+  如果里程计数据不太精确的情况下。可以适当调整以下参数。
+  增大：odom_alpha1, odom_alpha2, odom_alpha3, odom_alpha4

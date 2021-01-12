@@ -51,7 +51,7 @@ amcl_rtk_offline.launch文件中要修改数据集的路径和包名为测试用
 ```
 4.1.2 不融合RTK离线测试
 ```
-roslaunch amcl amcl_rtk_offline.launch
+roslaunch amcl amcl_offline.launch
 ```
 4.2 **在线测试**  
   4.2.1 融合RTK在线测试
@@ -107,7 +107,7 @@ mode: raw
   **voxel_max_range**: 过滤激光数据，超出阈值的数据不进行处理。  
   **voxel_min_num_points**: 过滤后输出激光线束的最小值。  
 
-6.4 **粒子滤波器重要参数**
+6.4 **粒子滤波器重要参数**  
   粒子滤波的核心处理模块，包含粒子聚类和重采样计算。  
   **min_particles**: 滤波器中使用的最少粒子个数。  
   **max_particles**: 滤波器中使用的最多粒子个数。  
@@ -115,7 +115,7 @@ mode: raw
   **update_min**: odom更新粒子位姿旋转角度触发阈值。  
   **resample_interval**: 重采样更新间隔。
 
-6.5 **初始位姿加载**
+6.5 **初始位姿加载**  
   该模块可以加载滤波器的粒子的初始位姿。  
   **initial_pose_x**: 初始位姿x坐标。  
   **initial_pose_y**: 初始位姿y坐标。  
@@ -126,7 +126,7 @@ mode: raw
 
 其他参数可以通过[ros wiki](http://wiki.ros.org/amcl)网页进行查询。
 
-6.6 **实际应用场景参数调节**
+6.6 **实际应用场景参数调节**  
   如果硬件的算力允许的话，为了达到更好的定位精度。可以按照如下方法进行调参。  
   增大： min_particles  
   增大： max_particles  

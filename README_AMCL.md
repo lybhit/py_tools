@@ -16,19 +16,19 @@ catkin_make_isolated -DCMAKE_BUILD_TYPE=Release --use-ninja --install --pkg amcl
 
 ## 3. 使用介绍
 3.1 **订阅话题**  
-  odom (nav_msgs/Odometry):里程计消息。  
-  map (nav_msgs/OccupancyGrid)：地图数据。  
-  scan (sensor_msgs/LaserScan)：激光雷达数据。  
-  tf (tf/tfMessage)：静态tf变换，必须给出laser_link->base_link之间的变换关系。  
-  initialpose (geometry_msgs/PoseWithCovarianceStamped)：机器人初始位姿，可以更新粒子滤波器的初始位姿。  
+  odom (nav_msgs/Odometry): 里程计消息。  
+  map (nav_msgs/OccupancyGrid): 地图数据。  
+  scan (sensor_msgs/LaserScan): 激光雷达数据。  
+  tf (tf/tfMessage): 静态tf变换，必须给出laser_link->base_link之间的变换关系。  
+  initialpose (geometry_msgs/PoseWithCovarianceStamped): 机器人初始位姿，可以更新粒子滤波器的初始位姿。  
 
 3.2 **发布话题**  
-  pose_with_cov (geometry_msgs/PoseWithCovarianceStamped)：包含协方差信息的位姿信息，用于和RTK融合定位。  
-  amcl_pose (geometry_msgs/PoseStamped):不包含协方差的位姿信息，用于we_navigation导航。  
-  particlecloud (geometry_msgs/PoseArray)：滤波器中所有粒子的位姿。  
-  tf (tf/tfMessage)：发布odom和map之间的坐标转换。  
-  filtered_scan (sensor_msgs::PointCloud2):发布过滤后的激光点云数据。  
-  weight_map (nav_msgs::OccupancyGrid):发布raw模式概率值的栅格地图。  
+  pose_with_cov (geometry_msgs/PoseWithCovarianceStamped): 包含协方差信息的位姿信息，用于和RTK融合定位。  
+  amcl_pose (geometry_msgs/PoseStamped): 不包含协方差的位姿信息，用于we_navigation导航。  
+  particlecloud (geometry_msgs/PoseArray): 滤波器中所有粒子的位姿。  
+  tf (tf/tfMessage):发布odom和map之间的坐标转换。  
+  filtered_scan (sensor_msgs::PointCloud2): 发布过滤后的激光点云数据。  
+  weight_map (nav_msgs::OccupancyGrid): 发布raw模式概率值的栅格地图。  
 
 3.3 **服务**  
   request_nomotion_update (std_srvs/Empty)：强制更新odom和map之间的变换。

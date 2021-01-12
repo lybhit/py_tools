@@ -9,29 +9,33 @@ ROS Melodic
 ceres-solver
 ```
 
-## 2. 使用介绍
-2.1 **订阅话题**
+## 2.编译
+```
+catkin_make_isolated -DCMAKE_BUILD_TYPE=Release --use-ninja --install --pkg amcl
+```
+
+## 3. 使用介绍
+3.1 **订阅话题**
 odom (nav_msgs/Odometry):里程计消息。
 map (nav_msgs/OccupancyGrid)：地图数据。
 scan (sensor_msgs/LaserScan)：激光雷达数据。
 tf (tf/tfMessage)：静态tf变换，必须给出laser_link->base_link之间的变换关系。
 initialpose (geometry_msgs/PoseWithCovarianceStamped)：机器人初始位姿，可以更新粒子滤波器的初始位姿。
 
-2.2 **发布话题**
-pose_with_cov (geometry_msgs/PoseWithCovarianceStamped)：包含协方差信息的位姿信息，用于和RTK融合定位。
-amcl_pose (geometry_msgs/PoseStamped):不包含协方差的位姿信息，用于we_navigation导航。
-particlecloud (geometry_msgs/PoseArray)：滤波器中所有粒子的位姿。
-tf (tf/tfMessage)：发布odom和map之间的坐标转换。
-filtered_scan (sensor_msgs::PointCloud2):发布过滤后的激光点云数据。
-weight_map (nav_msgs::OccupancyGrid):发布raw模式概率值的栅格地图。
+3.2 **发布话题**  
+  pose_with_cov (geometry_msgs/PoseWithCovarianceStamped)：包含协方差信息的位姿信息，用于和RTK融合定位。  
+  amcl_pose (geometry_msgs/PoseStamped):不包含协方差的位姿信息，用于we_navigation导航。  
+  particlecloud (geometry_msgs/PoseArray)：滤波器中所有粒子的位姿。  
+  tf (tf/tfMessage)：发布odom和map之间的坐标转换。  
+  filtered_scan (sensor_msgs::PointCloud2):发布过滤后的激光点云数据。  
+  weight_map (nav_msgs::OccupancyGrid):发布raw模式概率值的栅格地图。  
 
-2.3 **服务**
-global_localization (std_srvs/Empty)：全局定位初始化，所有粒子将随机分布在地图上的自由空间。
-request_nomotion_update (std_srvs/Empty)：强制更新odom和map之间的变换。
+3.3 **服务**  
+  request_nomotion_update (std_srvs/Empty)：强制更新odom和map之间的变换。
 
-## 3. 测试
-3.1 **离线测试**
-3.1.1 融合RTK离线测试
+## 4. 测试  
+  4.1 **离线测试**  
+  4.1.1 融合RTK离线测试  
 ```sh
 roslaunch amcl amcl_rtk_offline.launch
 ```
@@ -45,16 +49,16 @@ amcl_rtk_offline.launch文件中要修改数据集的路径和包名为测试用
 ```sh
 <arg name="map_name" default="/home/maps/map.yaml"/>
 ```
-3.1.2 不融合RTK离线测试
+4.1.2 不融合RTK离线测试
 ```
 roslaunch amcl amcl_rtk_offline.launch
 ```
-3.2 **在线测试**
-3.2.1 融合RTK在线测试
+4.2 **在线测试**  
+  4.2.1 融合RTK在线测试
 ```sh
 roslaunch amcl amcl_rtk_online.launch
 ```
-3.2.2 不融合RTK在线测试
+4.2.2 不融合RTK在线测试
 ```sh
 roslaunch amcl amcl_online.launch
 ```
@@ -68,8 +72,8 @@ roslaunch amcl amcl_online.launch
 提示：rviz中的工具栏中的“2D Pose Estimate”可以发布/initialpose话题，用rviz进行调试的时候可以通过“2D Pose Estimate”在地图界面上手动给初始位姿。
 
 ## 5. 调参说明
-5.1 **加载map**
-  5.1.1 use_raw_map: 
+5.1 **加载map**  
+  5.1.1 use_raw_map:   
 如果use_raw_map为true, 通过map_server发布map话题时，map对应的.yaml文件要指定地图模式(mode)为raw类型。
 示例如下：
 ```yaml
@@ -81,7 +85,7 @@ occupied_thresh: 0.65
 free_thresh: 0.196
 mode: raw
 ```
-如果use_raw_map为false,map对应的.yaml文件中地图模式(mode)行注释掉即可。
+  5.1.2 如果use_raw_map为false,map对应的.yaml文件中地图模式(mode)行注释掉即可。
 
 5.2 **odom更新粒子位姿模块重要参数说明**  
   该模块的参数主要用于在滤波算法中对粒子的位姿进行更新。  
@@ -123,15 +127,15 @@ mode: raw
 其他参数可以通过[ros wiki](http://wiki.ros.org/amcl)网页进行查询。
 
 5.6 **实际应用场景参数调节**
-  如果硬件的算力允许的话，为了达到更好的定位精度。可以按照如下方法进行调参。
-  增大： min_particles 
-  增大： max_particles
-  减小： update_min_d
-  减小： update_min_a
-  减小： resample_interval
+  如果硬件的算力允许的话，为了达到更好的定位精度。可以按照如下方法进行调参。  
+  增大： min_particles  
+  增大： max_particles  
+  减小： update_min_d  
+  减小： update_min_a  
+  减小： resample_interval  
 
-  如果里程计数据很精确的情况下。可以适当调整以下参数。
+  如果里程计数据很精确的情况下。可以适当调整以下参数。  
   减小：odom_alpha1, odom_alpha2, odom_alpha3, odom_alpha4
 
-  如果里程计数据不太精确的情况下。可以适当调整以下参数。
+  如果里程计数据不太精确的情况下。可以适当调整以下参数。  
   增大：odom_alpha1, odom_alpha2, odom_alpha3, odom_alpha4
